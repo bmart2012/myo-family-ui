@@ -49,8 +49,9 @@ Then `npm install`.
 ```js
 import 'myo-family-ui/styles.css';
 import {
-  connectionCardHeader, connectionRow, connectionDisconnected, connectionError,
-  renderFolderIcon, renderLibraryIcon,
+  connectionCardHeader, connectionRow, connectionDisconnected, connectionError, connectionLoading,
+  renderFolderIcon, renderLibraryIcon, FOLDER_ICON_PATH, LIBRARY_ICON_PATH,
+  loadingState,
   escapeHtml,
   showTabBar, hideTabBar,
 } from 'myo-family-ui';
@@ -58,20 +59,32 @@ import {
 
 ## What's here
 
-- `connection-card.js`/`.css` — an icon+title header (with an optional
-  subtle Disconnect text button at its far right when connected), a
-  connected row (status dot, optional row icon, name, optional spinner),
-  and a disconnected state (status text + Connect button) — the shape a
-  Settings screen's "connect an external account" card usually needs.
-  Disconnect lives on the header row rather than next to the name so a long
-  folder name or email has the full row to wrap into instead of competing
-  with a button for space.
-- `folder-icon.js` — a Feather-style folder outline, for a `connectionRow`'s
-  `icon` slot when the connection points at a folder.
-- `library-icon.js` — a Feather-style "grid" icon, for a `connectionRow`'s
-  `icon` slot when the connection points at a library/collection of
-  content rather than a folder — deliberately generic/MIT-licensed rather
-  than any specific service's own brand mark.
+- `connection-card.js`/`.css` — the full set of states a Settings screen's
+  "connect an external account" card usually needs:
+  - `connectionCardHeader({ icon, title, disconnectId, disconnectLabel })` —
+    an icon+title row, with an optional subtle Disconnect (or `disconnectLabel`
+    override, e.g. `"Log out"` for an account-style connection vs. the
+    `"Disconnect"` default for a folder/storage one) text button at its far
+    right when connected.
+  - `connectionRow({ name, icon, loading })` — the connected state: status
+    dot, optional row icon, name, optional inline spinner. No Disconnect
+    button here (that's the header's job above) — a long folder name or
+    email gets the whole row to wrap into (`overflow-wrap: break-word`)
+    instead of competing with a button for space and getting truncated.
+  - `connectionDisconnected({ statusText, icon, connectId, connectLabel })` —
+    the disconnected state: status text + a Connect button. Pass
+    `FOLDER_ICON_PATH`/`LIBRARY_ICON_PATH` (or a service's own brand icon
+    path) for the button's icon.
+  - `connectionLoading(text)` — a centered spinner + message for the gap
+    before a card knows whether it's connected, disconnected, or errored.
+  - `connectionError(message)` — an error message in `--danger`.
+- `folder-icon.js` — a Feather-style folder outline (`renderFolderIcon()`,
+  or the raw `FOLDER_ICON_PATH` for a `connectionDisconnected` button icon),
+  for when the connection points at a folder.
+- `library-icon.js` — a Feather-style "grid" icon (`renderLibraryIcon()`/
+  `LIBRARY_ICON_PATH`), for when the connection points at a
+  library/collection of content rather than a folder — deliberately
+  generic/MIT-licensed rather than any specific service's own brand mark.
 - `spinner.css` — a small inline loading spinner for showing a related
   fetch is in flight (e.g. inside a `connectionRow`, or standing in for a
   Disconnect/Log out button's label while that request is in flight).
