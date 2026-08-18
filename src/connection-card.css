@@ -67,7 +67,7 @@
 
 .connection-row {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 10px;
   background: var(--bg);
   border: 1px solid var(--border);
@@ -79,6 +79,7 @@
   width: 8px;
   height: 8px;
   flex-shrink: 0;
+  margin-top: 7px;
   border-radius: 50%;
   background: var(--success);
 }
@@ -94,12 +95,11 @@
   flex: 1;
   min-width: 0;
   font-weight: 600;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  overflow-wrap: break-word;
 }
 
 .connection-disconnect-btn {
+  margin-left: auto;
   flex-shrink: 0;
   background: none;
   border: none;

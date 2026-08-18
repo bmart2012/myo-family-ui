@@ -17,11 +17,19 @@ function iconSvgAttrs(iconStroke) {
   return iconStroke ? ' fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"' : '';
 }
 
-export function connectionCardHeader({ icon, iconViewBox = '0 0 24 24', iconStroke = false, title }) {
+/**
+ * The icon+title row. When `disconnectId` is passed (i.e. the card is in
+ * its connected state), a subtle Disconnect text button is placed at the
+ * far right of this same row — moved up here from connectionRow() below so
+ * a long folder name or email on the row underneath has the full card
+ * width to itself instead of sharing it with a button.
+ */
+export function connectionCardHeader({ icon, iconViewBox = '0 0 24 24', iconStroke = false, title, disconnectId }) {
   return `
     <div class="connection-card-header">
       <svg class="connection-icon" viewBox="${iconViewBox}"${iconSvgAttrs(iconStroke)} aria-hidden="true">${icon}</svg>
       <h2>${title}</h2>
+      ${disconnectId ? `<button id="${disconnectId}" class="connection-disconnect-btn" type="button">Disconnect</button>` : ''}
     </div>
   `;
 }
@@ -31,22 +39,18 @@ export function connectionCardHeader({ icon, iconViewBox = '0 0 24 24', iconStro
  * this connection points at (pass renderFolderIcon()/renderLibraryIcon(),
  * or any other pre-rendered <svg> markup — this function doesn't render an
  * icon itself, it just places one), a name/label (already-escaped HTML —
- * e.g. a folder name or a signed-in email), an optional loading spinner,
- * and a Disconnect button.
+ * e.g. a folder name or a signed-in email), and an optional loading
+ * spinner. No Disconnect button here — see connectionCardHeader() above —
+ * so a long name has the whole row to wrap into instead of being squeezed
+ * against a button and ellipsis-truncated.
  */
-export function connectionRow({
-  name,
-  disconnectId = 'connection-disconnect-btn',
-  icon = '',
-  loading = false,
-}) {
+export function connectionRow({ name, icon = '', loading = false }) {
   return `
     <div class="connection-row">
       <span class="connection-status-dot" aria-hidden="true"></span>
       ${icon}
       <span class="connection-name">${name}</span>
       ${loading ? '<span class="connection-loading-spinner" role="status" aria-label="Loading"></span>' : ''}
-      <button id="${disconnectId}" class="connection-disconnect-btn" type="button"${loading ? ' disabled' : ''}>Disconnect</button>
     </div>
   `;
 }

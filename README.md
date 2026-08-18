@@ -58,10 +58,14 @@ import {
 
 ## What's here
 
-- `connection-card.js`/`.css` — an icon+title header, a connected row
-  (status dot, optional row icon, name, optional spinner, Disconnect), and
-  a disconnected state (status text + Connect button) — the shape a
+- `connection-card.js`/`.css` — an icon+title header (with an optional
+  subtle Disconnect text button at its far right when connected), a
+  connected row (status dot, optional row icon, name, optional spinner),
+  and a disconnected state (status text + Connect button) — the shape a
   Settings screen's "connect an external account" card usually needs.
+  Disconnect lives on the header row rather than next to the name so a long
+  folder name or email has the full row to wrap into instead of competing
+  with a button for space.
 - `folder-icon.js` — a Feather-style folder outline, for a `connectionRow`'s
   `icon` slot when the connection points at a folder.
 - `library-icon.js` — a Feather-style "grid" icon, for a `connectionRow`'s
