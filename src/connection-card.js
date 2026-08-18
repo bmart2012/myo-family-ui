@@ -83,3 +83,15 @@ export function connectionDisconnected({
 export function connectionError(message) {
   return `<p class="connection-error">${message}</p>`;
 }
+
+/** A centered loading placeholder for the gap before a card knows whether
+ * it's connected, disconnected, or errored — same spinner used elsewhere
+ * (connectionRow's optional spinner, a Disconnect button mid-request). */
+export function connectionLoading(text = 'Loading…') {
+  return `
+    <div class="connection-loading">
+      <span class="connection-loading-spinner" role="status" aria-label="Loading"></span>
+      <span>${text}</span>
+    </div>
+  `;
+}
