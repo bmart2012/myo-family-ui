@@ -24,12 +24,19 @@ function iconSvgAttrs(iconStroke) {
  * a long folder name or email on the row underneath has the full card
  * width to itself instead of sharing it with a button.
  */
-export function connectionCardHeader({ icon, iconViewBox = '0 0 24 24', iconStroke = false, title, disconnectId }) {
+export function connectionCardHeader({
+  icon,
+  iconViewBox = '0 0 24 24',
+  iconStroke = false,
+  title,
+  disconnectId,
+  disconnectLabel = 'Disconnect',
+}) {
   return `
     <div class="connection-card-header">
       <svg class="connection-icon" viewBox="${iconViewBox}"${iconSvgAttrs(iconStroke)} aria-hidden="true">${icon}</svg>
       <h2>${title}</h2>
-      ${disconnectId ? `<button id="${disconnectId}" class="connection-disconnect-btn" type="button">Disconnect</button>` : ''}
+      ${disconnectId ? `<button id="${disconnectId}" class="connection-disconnect-btn" type="button">${disconnectLabel}</button>` : ''}
     </div>
   `;
 }
