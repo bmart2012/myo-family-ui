@@ -73,7 +73,14 @@ import {
   content rather than a folder — deliberately generic/MIT-licensed rather
   than any specific service's own brand mark.
 - `spinner.css` — a small inline loading spinner for showing a related
-  fetch is in flight (e.g. inside a `connectionRow`).
+  fetch is in flight (e.g. inside a `connectionRow`, or standing in for a
+  Disconnect/Log out button's label while that request is in flight).
+- `loading-state.js`/`.css` — `loadingState(text)`, a centered spinner +
+  message for a whole page/section's own loading state (e.g. "Checking
+  your library…" while a status check runs). Use `connectionLoading()`
+  instead when the loading state belongs inside a connection card —
+  `loadingState()` has more vertical padding, meant for a bigger empty
+  space than a compact card.
 - `tab-bar.js`/`.css` — a persistent bottom tab bar pattern
   (`showTabBar()`/`hideTabBar()`/`renderTabBar()`).
 - `format.js` — `escapeHtml`.

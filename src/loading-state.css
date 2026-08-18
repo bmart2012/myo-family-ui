@@ -1,0 +1,10 @@
+/* Requires --muted (see README's token contract). */
+.loading-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 60px 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
