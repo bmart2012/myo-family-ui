@@ -1,0 +1,51 @@
+/* Requires --bg, --border, --muted, --primary tokens. Consuming apps should
+   add `body.tab-bar-visible .screen { padding-bottom: calc(88px + env(safe-area-inset-bottom)); }`
+   (or equivalent for their own scrollable container) themselves, since the
+   selector for "the scrollable content area" varies per app. */
+#tab-bar {
+  display: none;
+  justify-content: center;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.06);
+  padding: 8px 0 calc(10px + env(safe-area-inset-bottom));
+}
+
+.tab-bar-inner {
+  display: flex;
+  width: 100%;
+  max-width: 720px;
+}
+
+.tab-button {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  background: none;
+  border: none;
+  padding: 6px 4px;
+  color: var(--muted);
+  cursor: pointer;
+  font: inherit;
+}
+
+.tab-button svg {
+  width: 22px;
+  height: 22px;
+}
+
+.tab-button span {
+  font-size: 0.72rem;
+}
+
+.tab-button.active {
+  color: var(--primary);
+}

@@ -1,0 +1,17 @@
+/* Shown inline (e.g. in a .connection-row) while a background fetch tied to
+   that row is in flight. Requires --border and --primary tokens. */
+.connection-loading-spinner {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  border: 2px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: mfu-spin 0.7s linear infinite;
+}
+
+@keyframes mfu-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
