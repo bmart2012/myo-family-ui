@@ -54,6 +54,7 @@ import {
   loadingState,
   escapeHtml,
   showTabBar, hideTabBar,
+  openDriveFolderPicker,
 } from 'myo-family-ui';
 ```
 
@@ -97,6 +98,18 @@ import {
 - `tab-bar.js`/`.css` — a persistent bottom tab bar pattern
   (`showTabBar()`/`hideTabBar()`/`renderTabBar()`).
 - `format.js` — `escapeHtml`.
+- `drive-picker.js` — `openDriveFolderPicker({ accessToken, developerKey, parentFolderId })`,
+  a thin wrapper around Google's Picker API for a folder-select "connect an
+  external account" flow: lazy-loads the Picker script, resolves
+  `{ folderId, folderName }` on a pick or `null` on cancel, always hides the
+  Picker's left nav pane (only one view is ever registered, so it has
+  nothing to switch to), and — given `parentFolderId` — opens already
+  showing that folder's contents instead of Drive's root, so a
+  previously-picked folder can show up as a directly clickable item on a
+  later reconnect instead of the parent re-navigating from scratch. Takes no
+  app-specific config; the consuming app supplies its own access token,
+  Picker API key, and (if it wants the "jump back near last time" behavior)
+  wherever it looks up that parent folder id from.
 
 ## Migrating a consuming app
 
